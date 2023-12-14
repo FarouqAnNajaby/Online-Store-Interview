@@ -15,6 +15,9 @@
         android:theme="@style/Theme.OnlineStoreFarouq"
         tools:targetApi="31">
         <activity
+            android:name=".ui.addproduct.AddProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.beranda.BerandaActivity"
             android:exported="false" />
         <activity

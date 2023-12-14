@@ -9,25 +9,63 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.onlinestorefarouq.R
 import com.example.onlinestorefarouq.databinding.ActivityBerandaBinding
 import com.example.onlinestorefarouq.databinding.DialogNormalBinding
 import com.example.onlinestorefarouq.repository.data.UserPreference
+import com.example.onlinestorefarouq.repository.data.model.Product
 import com.example.onlinestorefarouq.ui.MainActivity
+import com.example.onlinestorefarouq.ui.addproduct.AddProductActivity
+import com.example.onlinestorefarouq.ui.auth.AuthViewModel
 
 class BerandaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBerandaBinding
+    private lateinit var viewModel: ProductViewModel
+    private lateinit var productAdapter: ProductAdapter
+    private var productList = ArrayList<Product>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBerandaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        connectViewModel()
+        setupAdapter()
+        val userPreference = UserPreference(this)
+        viewModel.getListProductsRepo(userPreference.getUser().token.toString(),1,100,"","")
+
+        viewModel.getListProducts().observe(this) {
+            if (it != null) {
+                productList.addAll(it)
+            }
+        }
+
         binding.btnLogout.setOnClickListener { logout() }
-        binding.btnAddProduct.setOnClickListener {  }
-        binding.btnBack.setOnClickListener {  }
-        binding.edtSearch.setOnClickListener {  }
+        binding.btnAddProduct.setOnClickListener {
+            val intent = Intent(this@BerandaActivity, AddProductActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnBack.setOnClickListener { logout() }
+        binding.edtSearch.setOnClickListener {
+            viewModel.getListProductsRepo(userPreference.getUser().token.toString(),
+                1,100,binding.edtSearch.text.toString(),"")
+        }
+    }
+
+    private fun setupAdapter() {
+        val layoutManager = GridLayoutManager(this, 2)
+        binding.rvProduct.layoutManager = layoutManager
+        productAdapter = ProductAdapter(productList, this)
+        binding.rvProduct.adapter = productAdapter
+        if (productList.size > 0){
+            binding.btnAddProduct.isVisible = false
+            binding.tvProduct.isVisible = false
+        }
     }
 
     private fun logout() {
@@ -52,5 +90,12 @@ class BerandaActivity : AppCompatActivity() {
             finish()
         }
         dialogBinding.buttonNo.setOnClickListener { dialog.dismiss() }
+    }
+
+    private fun connectViewModel(){
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[ProductViewModel::class.java]
     }
 }

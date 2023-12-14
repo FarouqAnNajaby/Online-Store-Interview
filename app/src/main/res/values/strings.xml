@@ -14,4 +14,7 @@
     <string name="text_logout">Are you sure to Logout?</string>
     <string name="text_no">No</string>
     <string name="text_yes">Yes</string>
+    <string name="text_create_product">Create Product</string>
+    <string name="description">Description</string>
+    <string name="hint_description">Write description of product</string>
 </resources>
