@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.example.onlinestorefarouq.R
 import com.example.onlinestorefarouq.databinding.ActivityBerandaBinding
 import com.example.onlinestorefarouq.databinding.DialogNormalBinding
+import com.example.onlinestorefarouq.repository.data.UserPreference
 import com.example.onlinestorefarouq.ui.MainActivity
 
 class BerandaActivity : AppCompatActivity() {
@@ -46,6 +47,9 @@ class BerandaActivity : AppCompatActivity() {
             dialog.dismiss()
             val intent = Intent(this@BerandaActivity, MainActivity::class.java)
             startActivity(intent)
+            val userPreference = UserPreference(this)
+            userPreference.clearUser()
+            finish()
         }
         dialogBinding.buttonNo.setOnClickListener { dialog.dismiss() }
     }

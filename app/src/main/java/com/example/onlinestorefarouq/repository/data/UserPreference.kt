@@ -29,4 +29,10 @@ internal class UserPreference(context: Context) {
         model.token = preferences.getString(TOKEN, "")
         return model
     }
+
+    fun clearUser() {
+        val editor = preferences.edit()
+        editor.clear()
+        editor.apply()
+    }
 }

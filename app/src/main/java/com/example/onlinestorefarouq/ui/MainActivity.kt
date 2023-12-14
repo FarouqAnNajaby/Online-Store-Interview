@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         val userPreference = UserPreference(this)
         userModel = userPreference.getUser()
 
-
         if (userModel.email?.isNotEmpty() == true){
             binding.loadingView.isVisible = true
             val intent = Intent(this@MainActivity, BerandaActivity::class.java)
