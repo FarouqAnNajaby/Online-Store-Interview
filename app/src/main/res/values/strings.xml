@@ -6,4 +6,12 @@
     <string name="email">Email</string>
     <string name="email_hint">name@example.com</string>
     <string name="password">Password</string>
+    <string name="name_empty">Nama Empty or Not Valid</string>
+    <string name="email_empty">Email Empty or Not Valid</string>
+    <string name="password_empty">Password Empty or Not Valid</string>
+    <string name="text_add_product">Add Product</string>
+    <string name="text_product">Product</string>
+    <string name="text_logout">Are you sure to Logout?</string>
+    <string name="text_no">No</string>
+    <string name="text_yes">Yes</string>
 </resources>

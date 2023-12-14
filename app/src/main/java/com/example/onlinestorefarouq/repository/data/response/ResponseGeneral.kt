@@ -1,4 +1,4 @@
-package com.example.onlinestorefarouq.data.response
+package com.example.onlinestorefarouq.repository.data.response
 
 data class ResponseGeneral(
 	val code: String? = null,
